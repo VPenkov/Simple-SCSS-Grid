@@ -1,0 +1,13 @@
+////
+/// Grid configuration
+/// By default assumes a base font-size of 10px
+////
+
+// The amount of columns
+$GRID__columns: 12 !default;
+
+// The space between columns
+$GRID__gutter: 1.5rem !default;
+
+// An optional limit for the content
+$GRID__max-width: 120rem !default;

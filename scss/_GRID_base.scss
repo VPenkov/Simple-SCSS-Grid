@@ -1,0 +1,81 @@
+////
+/// Simple grid system
+////
+
+///
+/// Column mixin
+///
+/// @requires {mixin} clearfix
+/// @param {Number} $span - how many columns should the element take up
+/// @param {String} $media (optional) - a media query
+/// @param {Number} $columns - ...out of how many in total
+/// @param {String} $display - the `display` property
+/// @param {Number} $gap - the gutter on each side of the column
+///
+/// @example scss - col function
+/// .className {
+///     @include col(10, desktop, $display: flex);
+/// }
+///
+@mixin col(
+    $span: 12,
+    $media: null,
+    $columns: $GRID__columns,
+    $limit: null,
+    $display: block,
+    $gap: $GRID__gutter
+) {
+    @include GRID__mq($media) {
+        display: $display;
+        padding-left: $gap;
+        padding-right: $gap;
+        width: percentage($span / $columns);
+
+        @if $span == $columns {
+            @include clearfix;
+            float: none;
+        } @else {
+            float: left;
+        }
+
+        @if $limit == true {
+            @include col-limit;
+        }
+    }
+}
+
+///
+/// Grid element that leaves a certain margin on the right side
+/// in order to leave a certain amount of columns as a gap
+///
+/// @requires {mixin} clearfix
+/// @param {Number} $span - how many columns should the element take up
+/// @param {Number} $push - how many columns should the element push
+/// @param {String} $media (optional) - a media query
+/// @param {Number} $columns - ...out of how many in total
+/// @param {String} $display - the `display` property
+///
+/// @example scss col--push function
+/// .className {
+///     @include col--push(10, $display: flex);
+/// }
+///
+@mixin col--push(
+    $span: 11,
+    $push: 1,
+    $media: null,
+    $columns: $GRID__columns,
+    $display: block
+) {
+    @include col($span, $media, $columns, $display);
+
+    @include GRID__mq($media) {
+        margin-right: percentage($push / $columns);
+    }
+}
+
+@mixin col-limit() {
+    max-width: $GRID__max-width;
+    margin-left: auto;
+    margin-right: auto;
+}

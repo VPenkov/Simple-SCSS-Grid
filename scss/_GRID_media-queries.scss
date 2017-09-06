@@ -1,0 +1,46 @@
+////
+/// Media query system
+///
+/// @param {String} $size - `phone-only`, `tablet`, `desktop`, `desktop-big`
+/// @example scss - GRID__mq function
+/// @include GRID__mq(tablet) {
+///     padding: 20px;
+/// }
+////
+@mixin GRID__mq($size: null) {
+    @if $size == null {
+        @content;
+    } @else if $size == phone-only {
+        @media (max-width: 599px) {
+            @content;
+        }
+    } @else if $size == tablet {
+        @media (min-width: 600px) {
+            @content;
+        }
+    } @else if $size == tablet-portait-only {
+        @media (min-width: 600px) and (max-width: 899px) {
+            @content;
+        }
+    } @else if $size == tablet-landscape {
+        @media (min-width: 900px) {
+            @content;
+        }
+    } @else if $size == tablet-landscape-only {
+        @media (min-width: 900px) and (max-width: 1023px) {
+            @content;
+        }
+    } @else if $size == small-desktop {
+        @media (min-width: 960px) {
+            @content;
+        }
+    } @else if $size == desktop {
+        @media (min-width: 1024px) {
+            @content;
+        }
+    } @else if $size == big-desktop {
+        @media (min-width: 1201px) {
+            @content;
+        }
+    }
+}
